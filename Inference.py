@@ -55,7 +55,7 @@ def inference(video_file_path):
 def main():
 
     path_temp = os.getcwd()
-    cmd = 'cd /D {} && python Video_save.py'.format(path_temp)
+    cmd = 'python {}'.format(os.path.join(path_temp, 'Save_video.py'))
     obj = subprocess.Popen(cmd, shell=True,
                            stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     obj.communicate()
@@ -70,6 +70,8 @@ def main():
         flag = inference(video_file_path)
         if flag:
             print("Stagnant water")
+
+            # post
             post_request()
         else:
             print("No Stagnant water")
