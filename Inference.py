@@ -2,9 +2,10 @@ import os
 import paddle
 import argparse
 import subprocess
-import time
+from Request import post_request
 
 import paddle.nn.functional as F
+
 from Module import ResNetTweaksTSM, ppTSMHead, Recognizer2D
 import warnings
 from Preprocessing import preprocessing
@@ -69,6 +70,7 @@ def main():
         flag = inference(video_file_path)
         if flag:
             print("Stagnant water")
+            post_request()
         else:
             print("No Stagnant water")
 
