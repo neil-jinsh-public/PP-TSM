@@ -53,22 +53,24 @@ def inference(video_file_path):
 # ============================== Main ===============================
 def main():
 
-    cmd = 'cd /D D:/Python_Project/PP-TSM/Model_alter && python Video_save.py'
+    path_temp = os.getcwd()
+    cmd = 'cd /D {} && python Video_save.py'.format(path_temp)
     obj = subprocess.Popen(cmd, shell=True,
                            stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     obj.communicate()
 
     path = 'Video'
     file_name_list = os.listdir(path)
-    video_file_path = os.path.join(path, file_name_list[-1])
-
-    flag = inference(video_file_path)
-
-    # No Stagnant water
-    if flag:
-        print("Stagnant water")
+    try:
+        video_file_path = os.path.join(path, file_name_list[-1])
+    except IndexError as reason:
+        print('Error is {}'.format(reason))
     else:
-        print("No Stagnant water")
+        flag = inference(video_file_path)
+        if flag:
+            print("Stagnant water")
+        else:
+            print("No Stagnant water")
 
 
 if __name__ == '__main__':
